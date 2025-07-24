@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "372311754513",
+    "project_id": "whisper-e653b",
+    "storage_bucket": "whisper-e653b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372311754513:android:e29ec72496115aa11faeb0",
+        "android_client_info": {
+          "package_name": "com.example.whisper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN4bGTd2gHPcrCvVpXqbUxYK1fSoYJDc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372311754513:android:69ad8f929449e8ad1faeb0",
+        "android_client_info": {
+          "package_name": "com.example.whispr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN4bGTd2gHPcrCvVpXqbUxYK1fSoYJDc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
