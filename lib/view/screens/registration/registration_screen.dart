@@ -149,6 +149,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       firebaseServices.registration(
                         email: emailControllerR.text.trim(),
                         password: passwordControllerR.text,
+                        fullName: nameController.text.trim(),
                       );
                     }
                   },

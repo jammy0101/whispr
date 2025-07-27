@@ -16,7 +16,8 @@ class _AdduserState extends State<Adduser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+        title: Text('Here i want to  add friends :'),
+        centerTitle: true,
       ),
       bottomNavigationBar: const BottomNavigation(index: 1,),
       body: Column(

@@ -54,7 +54,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           key: _formKey,
           child: Column(
             children: [
-              Image.asset('assets/images/book3.png', height: 140),
+              Image.asset('assets/images/DayFlow.png', height: 140),
               const SizedBox(height: 16),
               Text(
                 "Forgot Password",

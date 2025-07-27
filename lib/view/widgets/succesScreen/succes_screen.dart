@@ -19,7 +19,7 @@ class SuccessScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(image: ExactAssetImage('assets/images/book3.png')),
+            Image(image: ExactAssetImage('assets/images/DayFlow.png')),
             const SizedBox(height: 30),
 
             Text(

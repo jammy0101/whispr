@@ -17,6 +17,8 @@ class _SettingState extends State<Setting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Here i want to add the setting option '),
+        centerTitle: true,
 
       ),
       bottomNavigationBar: const BottomNavigation(index: 2,),

@@ -40,6 +40,7 @@ class FirebaseServices extends GetxController {
   Future<void> registration({
     required String email,
     required String password,
+    required String fullName,
   }) async {
     loadingRegistration.value = true;
     try {
@@ -47,6 +48,17 @@ class FirebaseServices extends GetxController {
         email: email,
         password: password,
       );
+
+      final user = userCredential.user;
+      if (user != null) {
+        // ✅ Set the displayName explicitly
+        await user.updateDisplayName(fullName);
+        await user.reload(); // Important to reflect the change in currentUser
+        final updatedUser = auth.currentUser;
+
+        // ✅ Now save to Firestore
+        await saveUserToFirestore(updatedUser!, fullName: fullName);
+      }
 
       Get.snackbar("Successfully".tr, 'Registration Completed'.tr);
       print("User Register : ${userCredential.user!.uid}");
@@ -82,19 +94,14 @@ class FirebaseServices extends GetxController {
   Future<User?> loginWithGoogle() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
-
       // Sign out first to always show account picker
       await googleSignIn.signOut();
-
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-
       if (googleUser == null) {
         Get.snackbar('Cancelled'.tr, 'Google sign-in was cancelled'.tr);
         return null;
       }
-
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
       final OAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -102,13 +109,14 @@ class FirebaseServices extends GetxController {
 
       final UserCredential userCredential = await auth.signInWithCredential(credential);
 
-      final user = userCredential.user;
-
-      // ✅ Show success message
+       final user = userCredential.user;
+      if (user != null) {
+        await saveUserToFirestore(user, fullName: user.displayName); // This is safe
+      }
       Get.snackbar(
         'Welcome 👋',
         'Logged in as ${user?.displayName ?? 'User'}',
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: const Color(0xFF4CAF50),
         colorText: const Color(0xFFFFFFFF),
       );
@@ -124,18 +132,20 @@ class FirebaseServices extends GetxController {
   }
 
 
-  Future<void> saveUserToFirestore(User user) async {
+  Future<void> saveUserToFirestore(User user, {String? fullName}) async {
     final userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
+
     final snapshot = await userRef.get();
     if (!snapshot.exists) {
       await userRef.set({
-        'name': user.displayName ?? '',
-        'email': user.email ?? '',
         'uid': user.uid,
+        'name': fullName ?? user.displayName ?? '',
+        'email': user.email ?? 'no email',
         'createdAt': FieldValue.serverTimestamp(),
       });
     }
   }
+
 
 
 }
